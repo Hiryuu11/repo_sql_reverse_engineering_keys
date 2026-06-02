@@ -1,4 +1,4 @@
-;WITH Relations AS (
+WITH Relations AS (
     SELECT
         ps.name + '.' + pt.name AS SourceTableFull,
         rs.name + '.' + rt.name AS TargetTableFull,
@@ -57,7 +57,6 @@ FROM Paths
 ORDER BY Root, Lvl, TablePath
 OPTION (MAXRECURSION 32767);
 
-
 /*Copilot
 
 You are a data architect.
@@ -77,5 +76,4 @@ Edges:
 
 Tree excerpt:
 <OPTIONAL: PASTE TREE HERE>
-
 */
