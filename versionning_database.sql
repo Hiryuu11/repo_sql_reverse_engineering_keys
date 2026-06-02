@@ -1,4 +1,3 @@
-
 -- 1) Check server version + current database
 SELECT
     @@VERSION AS SqlServerVersion,
