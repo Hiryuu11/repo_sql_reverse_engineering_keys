@@ -1,4 +1,3 @@
-
 SELECT TOP (20)
     s.name AS SchemaName,
     t.name AS TableName,
