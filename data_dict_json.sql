@@ -1,0 +1,43 @@
+SELECT
+    s.name AS SchemaName,
+    t.name AS TableName,
+    pk.PKColumns
+FROM sys.tables t
+JOIN sys.schemas s
+    ON s.schema_id = t.schema_id
+OUTER APPLY
+(
+    SELECT STRING_AGG(c.name, ', ') WITHIN GROUP (ORDER BY ic.key_ordinal) AS PKColumns
+    FROM sys.indexes i
+    JOIN sys.index_columns ic
+        ON ic.object_id = i.object_id
+       AND ic.index_id  = i.index_id
+    JOIN sys.columns c
+        ON c.object_id  = ic.object_id
+       AND c.column_id  = ic.column_id
+    WHERE i.object_id = t.object_id
+      AND i.is_primary_key = 1
+) pk
+ORDER BY s.name, t.name;
+
+/*Copilot
+
+You are documenting a SQL Server database.
+Using ONLY the JSON metadata below, create a data dictionary.
+
+For each table:
+- 1-line purpose guess
+- Key columns (based on names)
+- Confidence score 1-5
+
+For each column:
+- Short description guess based on name + datatype
+- Mark uncertain guesses with [ASSUMPTION]
+
+Rules:
+- Do NOT invent tables or columns.
+- Prefer cautious language.
+
+JSON metadata:
+<PASTE JSON HERE>
+*/
